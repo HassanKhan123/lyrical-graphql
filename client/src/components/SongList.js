@@ -5,6 +5,7 @@ const SongList = () => {
   const query = gql`
     {
       songs {
+        id
         title
       }
     }
@@ -15,8 +16,8 @@ const SongList = () => {
   const renderSongs = () => {
     return (
       data &&
-      data.songs.map((song, index) => {
-        return <li key={index}>{song.title}</li>;
+      data.songs.map((song) => {
+        return <li key={song.id}>{song.title}</li>;
       })
     );
   };
