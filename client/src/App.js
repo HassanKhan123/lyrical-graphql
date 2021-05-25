@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 
 import SongList from './components/SongList';
+import SongCreate from './components/SongCreate';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -22,6 +23,9 @@ const App = () => {
         <Switch>
           <Route path='/' exact>
             <SongList />
+          </Route>
+          <Route path='/song/new' exact>
+            <SongCreate />
           </Route>
         </Switch>
       </Router>
