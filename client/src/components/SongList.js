@@ -6,7 +6,7 @@ import fetchSongs from '../queries/fetchSongs';
 
 const SongList = () => {
   const query = fetchSongs;
-  const { data, loading, error } = useQuery(query);
+  const { data, loading, error, refetch } = useQuery(query);
 
   const DELETE_SONG = gql`
     mutation DeleteSong($id: ID) {
@@ -22,8 +22,8 @@ const SongList = () => {
     try {
       await deleteSong({
         variables: { id },
-        // refetchQueries: [{ query: fetchSongs }],
       });
+      refetch();
     } catch (err) {
       console.log('error', err);
     }
