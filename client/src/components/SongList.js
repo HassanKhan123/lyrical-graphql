@@ -17,7 +17,11 @@ const SongList = () => {
     return (
       data &&
       data.songs.map((song) => {
-        return <li key={song.id}>{song.title}</li>;
+        return (
+          <li key={song.id} className='collection-item'>
+            {song.title}
+          </li>
+        );
       })
     );
   };
@@ -28,7 +32,7 @@ const SongList = () => {
       ) : loading ? (
         <h1>Loading ....</h1>
       ) : (
-        renderSongs()
+        <ul className='collection'>{renderSongs()}</ul>
       )}
     </div>
   );
