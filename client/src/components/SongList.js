@@ -10,9 +10,27 @@ const SongList = () => {
     }
   `;
 
-  const { data } = useQuery(query);
-  console.log('DATA===========', data);
-  return <div>SongList</div>;
+  const { data, loading, error } = useQuery(query);
+
+  const renderSongs = () => {
+    return (
+      data &&
+      data.songs.map((song, index) => {
+        return <li key={index}>{song.title}</li>;
+      })
+    );
+  };
+  return (
+    <div>
+      {error ? (
+        <p>{error.message}</p>
+      ) : loading ? (
+        <h1>Loading ....</h1>
+      ) : (
+        renderSongs()
+      )}
+    </div>
+  );
 };
 
 export default SongList;
