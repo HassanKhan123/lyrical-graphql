@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 
+import fetchSongs from '../queries/fetchSongs';
+
 const SongCreate = (props) => {
   let history = useHistory();
   const [title, setTitle] = useState('');
@@ -20,7 +22,10 @@ const SongCreate = (props) => {
     e.preventDefault();
 
     try {
-      await addSong({ variables: { title } });
+      await addSong({
+        variables: { title },
+        refetchQueries: [{ query: fetchSongs }],
+      });
       history.push('/');
     } catch (err) {
       console.log('error', err);
