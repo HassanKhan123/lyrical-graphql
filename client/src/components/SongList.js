@@ -26,7 +26,7 @@ const SongList = () => {
     );
   };
   return (
-    <div>
+    <div className='container'>
       {error ? (
         <p>{error.message}</p>
       ) : loading ? (

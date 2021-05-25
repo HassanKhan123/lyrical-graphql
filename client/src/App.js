@@ -1,6 +1,12 @@
 import React from 'react';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client/react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 
 import SongList from './components/SongList';
 
@@ -12,7 +18,13 @@ const client = new ApolloClient({
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <SongList />
+      <Router>
+        <Switch>
+          <Route path='/' exact>
+            <SongList />
+          </Route>
+        </Switch>
+      </Router>
     </ApolloProvider>
   );
 };
