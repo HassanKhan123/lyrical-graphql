@@ -1,13 +1,18 @@
 import React from 'react';
-import ApolloClient from 'apollo-client';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client/react';
 
-const client = new ApolloClient({});
+import SongList from './components/SongList';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:4000',
+  cache: new InMemoryCache(),
+});
 
 const App = () => {
   return (
     <ApolloProvider client={client}>
-      <div>Lyrical</div>
+      <SongList />
     </ApolloProvider>
   );
 };
