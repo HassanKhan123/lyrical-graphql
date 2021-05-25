@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
 
-const SongCreate = () => {
+const SongCreate = (props) => {
+  let history = useHistory();
   const [title, setTitle] = useState('');
 
   const ADD_SONG = gql`
@@ -14,14 +16,20 @@ const SongCreate = () => {
 
   const [addSong] = useMutation(ADD_SONG);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    addSong({ variables: { title } });
+    try {
+      await addSong({ variables: { title } });
+      history.push('/');
+    } catch (err) {
+      console.log('error', err);
+    }
     setTitle('');
   };
   return (
     <div className='container'>
+      <Link to='/'>Back</Link>
       <h3>Create a New Song!</h3>
       <form onSubmit={submitHandler}>
         <label>Song Title:</label>

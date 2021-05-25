@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { gql, useQuery } from '@apollo/client';
 
 const SongList = () => {
@@ -32,7 +33,12 @@ const SongList = () => {
       ) : loading ? (
         <h1>Loading ....</h1>
       ) : (
-        <ul className='collection'>{renderSongs()}</ul>
+        <div>
+          <ul className='collection'>{renderSongs()}</ul>
+          <Link to='/song/new' className='btn-floating btn-large red right'>
+            <i className='material-icons'>add</i>
+          </Link>
+        </div>
       )}
     </div>
   );
