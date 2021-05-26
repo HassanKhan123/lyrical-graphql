@@ -10,6 +10,7 @@ import {
 
 import SongList from './components/SongList';
 import SongCreate from './components/SongCreate';
+import SongDetail from './components/SongDetail';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -21,12 +22,17 @@ const App = () => {
     <ApolloProvider client={client}>
       <Router>
         <Switch>
-          <Route path='/' exact>
-            <SongList />
-          </Route>
-          <Route path='/song/new' exact>
-            <SongCreate />
-          </Route>
+          <Route path='/' exact render={(props) => <SongList {...props} />} />
+
+          <Route
+            path='/song/new'
+            render={(props) => <SongCreate {...props} />}
+          />
+
+          <Route
+            path='/song/:id'
+            render={(props) => <SongDetail {...props} />}
+          />
         </Switch>
       </Router>
     </ApolloProvider>
