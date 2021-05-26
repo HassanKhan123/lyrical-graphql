@@ -22,7 +22,6 @@ const LyricCreate = (props) => {
     try {
       await addLyric({
         variables: { content, songId: props.songId },
-        // refetchQueries: [{ query: fetchSongs }],
       });
     } catch (err) {
       console.log('error', err);
