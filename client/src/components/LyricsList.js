@@ -12,10 +12,18 @@ const LyricsList = (props) => {
   `;
 
   const [likeLyric] = useMutation(LIKE_LYRIC);
-  const thumbsUpLyric = async (id) => {
+  const thumbsUpLyric = async (id, likes) => {
     try {
       await likeLyric({
         variables: { id },
+        optimisticResponse: {
+          __typename: 'Mutation',
+          likeLyric: {
+            id,
+            __typename: 'LyricType',
+            likes: likes + 1,
+          },
+        },
       });
     } catch (err) {
       console.log('error', err);
@@ -30,7 +38,7 @@ const LyricsList = (props) => {
             <div className='vote-box'>
               <i
                 className='material-icons'
-                onClick={() => thumbsUpLyric(lyric.id)}
+                onClick={() => thumbsUpLyric(lyric.id, lyric.likes)}
               >
                 thumb_up
               </i>
