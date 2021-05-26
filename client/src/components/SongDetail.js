@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 
 import fetchSong from '../queries/fetchSong';
+import LyricCreate from './LyricCreate';
 
 const SongDetail = (props) => {
   const FETCH_SONG = fetchSong;
@@ -18,9 +19,11 @@ const SongDetail = (props) => {
   }
 
   return (
-    <div>
+    <div className='container'>
       <Link to='/'>Back</Link>
       <h3>{data.song.title}</h3>
+
+      <LyricCreate songId={props.match.params.id} />
     </div>
   );
 };
