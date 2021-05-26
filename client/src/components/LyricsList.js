@@ -1,8 +1,25 @@
 import React from 'react';
+import { gql, useMutation } from '@apollo/client';
 
 const LyricsList = (props) => {
-  const likeLyric = (id) => {
-    console.log('LIKED', id);
+  const LIKE_LYRIC = gql`
+    mutation LikeLyric($id: ID) {
+      likeLyric(id: $id) {
+        id
+        likes
+      }
+    }
+  `;
+
+  const [likeLyric] = useMutation(LIKE_LYRIC);
+  const thumbsUpLyric = async (id) => {
+    try {
+      await likeLyric({
+        variables: { id },
+      });
+    } catch (err) {
+      console.log('error', err);
+    }
   };
   return (
     <ul className='collection'>
@@ -10,10 +27,15 @@ const LyricsList = (props) => {
         return (
           <li key={lyric.id} className='collection-item'>
             {lyric.content}
-
-            <i className='material-icons' onClick={() => likeLyric(lyric.id)}>
-              thumb_up
-            </i>
+            <div className='vote-box'>
+              <i
+                className='material-icons'
+                onClick={() => thumbsUpLyric(lyric.id)}
+              >
+                thumb_up
+              </i>
+              {lyric.likes}
+            </div>
           </li>
         );
       })}
