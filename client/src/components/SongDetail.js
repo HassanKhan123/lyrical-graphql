@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
+import { Link } from 'react-router-dom';
 
 import fetchSong from '../queries/fetchSong';
 
 const SongDetail = (props) => {
   const FETCH_SONG = fetchSong;
-  console.log('params', props);
 
   const { data, loading, error } = useQuery(FETCH_SONG, {
     variables: {
@@ -13,11 +13,14 @@ const SongDetail = (props) => {
     },
   });
 
-  console.log('DATA========', data, loading, error);
+  if (loading) {
+    return <h3>Loading.....</h3>;
+  }
 
   return (
     <div>
-      <h3>Song Detail</h3>
+      <Link to='/'>Back</Link>
+      <h3>{data.song.title}</h3>
     </div>
   );
 };
