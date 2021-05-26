@@ -24,7 +24,6 @@ const LyricCreate = (props) => {
         variables: { content, songId: props.songId },
         // refetchQueries: [{ query: fetchSongs }],
       });
-      //   history.push('/');
     } catch (err) {
       console.log('error', err);
     }
